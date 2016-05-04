@@ -2,21 +2,23 @@ package SAIN_Report;
 
 import java.util.EventObject;
 
+import Bags.Student;
+
 public class LoginEvent extends EventObject{
   
-  private Person person;
+  private Student student;
   
   public LoginEvent(Object arg0) {
     super(arg0);
   }
   
-  public LoginEvent(Object source, Person per){
+  public LoginEvent(Object source, Student stu){
     super(source);
-    person = per;
+    student = stu;
   }
   
-  public Person getPerson(){
-    return person;
+  public Student getStudent(){
+    return student;
   }
 
 }

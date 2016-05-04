@@ -1,5 +1,6 @@
 package SAIN_Report;
 
+import Bags.Student;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,30 +14,23 @@ import javafx.stage.Stage;
 public class LoginWindowGui {
   
   private Button login;
-  private Button register; 
-  private TextArea usernameField;
+  public static TextArea usernameField;
   private Label user;
-  private PasswordField passwordField;
+  public static PasswordField passwordField;
   private Label pass;
   private Stage s;
   private LoginListener loginListener;
-  private RegisterListener registerListener;
 
   private GridPane gp;
   
   private String username;
   private String password;
-  private String firstname;
-  private String lastname;
-  private String idnum;
-  private String eMail;
   
   public LoginWindowGui(Stage stage){
     s = stage;
     s.setTitle("SAIN Login Screne");
     
     login = new Button("Login");
-    register = new Button("Register");
     usernameField = new TextArea();
     usernameField.setPrefSize(150, 30);
     user = new Label("Username: ");
@@ -50,22 +44,13 @@ public class LoginWindowGui {
       
       LoginController.setPass(password);
       LoginController.setUser(username);
-      LoginEvent le = new LoginEvent(this, new Person(username, password, null, null, null, null));
+      LoginEvent le = new LoginEvent(this, new Student(null, username, password, null, 0));
       
       if(loginListener != null){
         loginListener.buttonClicked(le);
       }
     });
         
-    register.setOnAction(e -> {
-      
-      RegisterEvent re = new RegisterEvent(this, new Person(null, null, null, null, null, null));
-      
-      if(registerListener != null){
-        registerListener.buttonClicked(re);
-      }
-    });
-    
     gp = new GridPane();
     gp.setAlignment(Pos.CENTER);
     gp.setHgap(10);
@@ -73,7 +58,6 @@ public class LoginWindowGui {
     gp.setPadding(new Insets(25, 25, 25, 25));
     
     gp.add(login, 2, 1);
-    gp.add(register, 2, 2);
     gp.add(usernameField, 1, 0);
     gp.add(user, 0, 0);
     gp.add(passwordField, 1, 1);
@@ -85,9 +69,5 @@ public class LoginWindowGui {
   
   public void setLoginListner(LoginListener listener){
     loginListener = listener;
-  }
-  
-  public void setRegisterListener(RegisterListener listener){
-    registerListener = listener;
   }
 }

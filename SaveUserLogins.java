@@ -1,34 +1,42 @@
-package SAIN_Report;
+package UserLogin;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
+import javafx.util.Pair;
 
 public class SaveUserLogins {
   private static String User;
   private static String Pass;
-  public static HashMap<String, String> userMap = new HashMap<String, String>();
+  static Properties properties;
+  public static HashMap<String, String> userMap = new HashMap<String,String>();
 
   public static void SaveUserLogins(String username, String password){
     
-    userMap.put(username, password); 
+    userMap.put(username, password);
     
-    Properties properties = new Properties();
+    try{
+      File login = new File("userLogin.dat");
+      FileOutputStream fos = new FileOutputStream(login , true);
+      PrintWriter pw = new PrintWriter(fos);
 
-    for (HashMap.Entry<String,String> entry : userMap.entrySet()) {
-        properties.put(entry.getKey(), entry.getValue());
-    }
+        for(Map.Entry<String,String> m :userMap.entrySet()){
+          pw.println(m.getKey()+"="+m.getValue());
+        }
 
-    try {
-      properties.store(new FileOutputStream("userLogin.properties"), null);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }  
-    
-    System.out.println(userMap);
+        pw.flush();
+        pw.close();
+        fos.close();
+      }catch(Exception e){}
+
+      System.out.println(userMap);
+
   }
 }
