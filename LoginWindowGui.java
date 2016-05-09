@@ -1,5 +1,18 @@
+/**
+ * This is the login screen that all users, 
+ * Students and admins, will see upon program start up.
+ * It allows the user to input there specific username
+ * and password. Then it will bring them to the proper
+ * view for the user type. Admins to the adminScreen class
+ * and students to the WhatIf class, then to the mainSceen 
+ * class. 
+ * 
+ * @author ShawnWilliams
+ */
+
 package SAIN_Report;
 
+import Bags.Student;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,33 +23,51 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * The Class LoginWindowGui.
+ */
 public class LoginWindowGui {
   
+  /** The login. */
   private Button login;
-  private Button register; 
-  private TextArea usernameField;
+  
+  /** The username field. */
+  public static TextArea usernameField;
+  
+  /** The user. */
   private Label user;
-  private PasswordField passwordField;
+  
+  /** The password field. */
+  public static PasswordField passwordField;
+  
+  /** The pass. */
   private Label pass;
+  
+  /** The s. */
   private Stage s;
+  
+  /** The login listener. */
   private LoginListener loginListener;
-  private RegisterListener registerListener;
 
+  /** The gp. */
   private GridPane gp;
   
+  /** The username. */
   private String username;
-  private String password;
-  private String firstname;
-  private String lastname;
-  private String idnum;
-  private String eMail;
   
+  /** The password. */
+  private String password;
+  
+  /**
+   * Instantiates a new login window gui.
+   *
+   * @param stage the stage
+   */
   public LoginWindowGui(Stage stage){
     s = stage;
     s.setTitle("SAIN Login Screne");
     
     login = new Button("Login");
-    register = new Button("Register");
     usernameField = new TextArea();
     usernameField.setPrefSize(150, 30);
     user = new Label("Username: ");
@@ -44,28 +75,22 @@ public class LoginWindowGui {
     passwordField.setPrefSize(150, 30);
     pass = new Label("Password: ");
     
+    
+    //gets all relevant information from the Gui and
+    //send it to the proper places for the login process.
     login.setOnAction(e -> {
       username = usernameField.getText();
       password = passwordField.getText();
       
       LoginController.setPass(password);
       LoginController.setUser(username);
-      LoginEvent le = new LoginEvent(this, new Person(username, password, null, null, null, null));
+      LoginEvent le = new LoginEvent(this, new Student(username, password, null, null, null, 0));
       
       if(loginListener != null){
         loginListener.buttonClicked(le);
       }
     });
         
-    register.setOnAction(e -> {
-      
-      RegisterEvent re = new RegisterEvent(this, new Person(null, null, null, null, null, null));
-      
-      if(registerListener != null){
-        registerListener.buttonClicked(re);
-      }
-    });
-    
     gp = new GridPane();
     gp.setAlignment(Pos.CENTER);
     gp.setHgap(10);
@@ -73,7 +98,6 @@ public class LoginWindowGui {
     gp.setPadding(new Insets(25, 25, 25, 25));
     
     gp.add(login, 2, 1);
-    gp.add(register, 2, 2);
     gp.add(usernameField, 1, 0);
     gp.add(user, 0, 0);
     gp.add(passwordField, 1, 1);
@@ -83,11 +107,12 @@ public class LoginWindowGui {
     s.show();
   }
   
+  /**
+   * Sets the login listener.
+   *
+   * @param listener the new login listener
+   */
   public void setLoginListner(LoginListener listener){
     loginListener = listener;
-  }
-  
-  public void setRegisterListener(RegisterListener listener){
-    registerListener = listener;
   }
 }
