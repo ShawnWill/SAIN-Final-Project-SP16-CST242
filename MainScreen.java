@@ -181,7 +181,9 @@ public class MainScreen {
    int i = 0;
    while(i <= 1){
      taken.appendText(set.getEngCourse()[i].toString() + "\n");
-     taken.appendText(set.getCstCourse()[i].toString() + "\n");
+     if(Student.getMajorID().equals("5101")){
+       taken.appendText(set.getCstCourse()[i].toString() + "\n");
+     }
      taken.appendText(set.getMatCourse()[i].toString() + "\n");
      if(Student.getMajorID().equals("5101")){
        taken.appendText(set.getSciCourse()[i].toString() + "\n");
