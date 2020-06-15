@@ -1,5 +1,6 @@
 package SAIN_Report;
 
+import Bags.Student;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -59,7 +60,7 @@ public class LoginWindowGui {
         
     register.setOnAction(e -> {
       
-      RegisterEvent re = new RegisterEvent(this, new Person(null, null, null, null, null, null));
+      RegisterEvent re = new RegisterEvent(this, new Student(null, null, null, null, 0, 0));
       
       if(registerListener != null){
         registerListener.buttonClicked(re);

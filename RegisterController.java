@@ -1,5 +1,6 @@
 package SAIN_Report;
 
+import Bags.Student;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,13 +16,13 @@ import javafx.stage.Stage;
 
 public class RegisterController {
   private LoginWindowGui view;
-  private Person model; 
+  private Student model; 
   private GridPane gp;
   private Button Register;
   private TextField passwordFeild;
   private TextField usernameFeild;
-  private TextField fname;
-  private Label FirstName;
+  private TextField name;
+  private Label Name;
   private TextField lname;
   private Label LastName;
   private TextField email;
@@ -35,8 +36,8 @@ public class RegisterController {
     view.setRegisterListener(new RegisterListener(){
 
       @Override
-      public void buttonClicked(RegisterEvent re) {
-        model = re.getPerson();
+      public void buttonClicked(RegisterEvent re){
+        model = re.getStudent();
         System.out.println(re.getSource());
         
         Parent root;
@@ -48,10 +49,10 @@ public class RegisterController {
         pass = new Label("Password: ");
         user = new Label("Username: ");
         usernameFeild = new TextField();
-        fname = new TextField();
-        FirstName = new Label("First Name: ");
-        lname = new TextField();
-        LastName = new Label("Last Name: ");
+        name = new TextField();
+        Name = new Label("Name: ");
+       // lname = new TextField();
+       // LastName = new Label("Last Name: ");
         email = new TextField();
         EMail = new Label("Email Address");
         idNo = new TextField();
@@ -61,16 +62,15 @@ public class RegisterController {
 
           @Override
           public void handle(MouseEvent event) {
-            SaveUserLogins.SaveUserLogins(usernameFeild.getText(), 
+            SaveUserLogins.SaveUserLogins(usernameFeild.getText(),
                 passwordFeild.getText());
-            model.setUserName(re.getPerson().getUserName());
-            model.setPassword(re.getPerson().getPassword());
-            model.setFName(re.getPerson().getFName());
-            model.setLName(re.getPerson().getLName());
-            model.setEmail(re.getPerson().getEmail());
-            model.setID_No(re.getPerson().getID_No());
+            model.setUserName(usernameFeild.getText());
+            model.setPassword(passwordFeild.getText());
+            model.setName(name.getText());
+            model.setMajorID(re.getStudent().getMajorID());
+            model.setGpa(re.getStudent().getGpa());
             System.out.println("New User Added!!!");
-            System.out.println(re.getPerson());
+            System.out.println(re.getStudent());
             stage.close();
           }         
         });
@@ -84,10 +84,10 @@ public class RegisterController {
         gp.add(user, 0, 0);
         gp.add(passwordFeild, 1, 1);
         gp.add(pass, 0, 1);
-        gp.add(FirstName, 0, 2);
-        gp.add(fname, 1, 2);
-        gp.add(LastName, 0, 3);
-        gp.add(lname, 1, 3);
+        gp.add(Name, 0, 2);
+        gp.add(name, 1, 2);
+      //  gp.add(LastName, 0, 3);
+      //  gp.add(lname, 1, 3);
         gp.add(email, 1, 4);
         gp.add(EMail, 0, 4);
         gp.add(idNo, 1, 5);

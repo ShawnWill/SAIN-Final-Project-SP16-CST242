@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
+import javafx.util.Pair;
+
 public class SaveUserLogins {
   private static String User;
   private static String Pass;
-  public static HashMap<String, String> userMap = new HashMap<String, String>();
+  public static HashMap<String, String> userMap = new HashMap<String,String>();
 
   public static void SaveUserLogins(String username, String password){
     
